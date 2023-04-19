@@ -30,7 +30,7 @@ public class ApiTest {
     @Test
     public void test_insert() {
         Activity activity = new Activity();
-        activity.setActivityId(100001L);
+        activity.setActivityId(100002L);
         activity.setActivityName("测试活动");
         activity.setActivityDesc("仅用于插入数据测试");
         activity.setBeginDateTime(new Date());
@@ -44,7 +44,7 @@ public class ApiTest {
 
     @Test
     public void test_select() {
-        Activity activity = activityDao.queryActivityById(100001L);
+        Activity activity = activityDao.queryActivityById(100002L);
         logger.info("测试结果：{}", JSON.toJSONString(activity));
     }
 

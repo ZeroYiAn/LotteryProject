@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: zero
-    url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true
+    url: jdbc:mysql://127.0.0.1:3306/lottery_test?useUnicode=true
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
