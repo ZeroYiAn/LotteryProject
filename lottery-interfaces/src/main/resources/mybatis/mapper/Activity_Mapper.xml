@@ -2,20 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itedus.lottery.infrastructure.dao.IActivityDao">
 
+    <resultMap id="activityMap" type="cn.itedus.lottery.infrastructure.po.Activity">
+        <!--id标签设置主键的映射关系 -->
+        <id column="id" property="id"/>
+        <!--result标签设置普通字段的映射关系-->
+        <!-- column：数据库中字段名 对应 property:PO类中属性名-->
+        <result column="activity_id" property="activityId"/>
+        <result column="activity_name" property="activityName"/>
+        <result column="activity_desc" property="activityDesc"/>
+        <result column="begin_date_time" property="beginDateTime"/>
+        <result column="end_date_time" property="endDateTime"/>
+        <result column="stock_count" property="stockCount"/>
+        <result column="take_count" property="takeCount"/>
+        <result column="state" property="state"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
     <insert id="insert" parameterType="cn.itedus.lottery.infrastructure.po.Activity">
         INSERT INTO activity
-        (activity_id, activity_name, activity_desc,begin_date_time, end_date_time,
+        (activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
          stock_count, take_count, state, creator, create_time, update_time)
         VALUES
             (#{activityId}, #{activityName}, #{activityDesc},#{beginDateTime}, #{endDateTime},
              #{stockCount}, #{takeCount}, #{state}, #{creator}, now(), now())
     </insert>
 
-    <select id="queryActivityById" parameterType="java.lang.Long" resultType="cn.itedus.lottery.infrastructure.po.Activity">
-        SELECT activity_id, activity_name, activity_desc,begin_date_time, end_date_time,
+    <update id="alterState" parameterType="cn.itedus.lottery.domain.activity.model.vo.AlterStateVO">
+        UPDATE activity
+        SET state = #{afterState}
+        WHERE activity_id = #{activityId} AND state = #{beforeState}
+    </update>
+
+    <select id="queryActivityById" parameterType="java.lang.Long" resultMap="activityMap">
+        SELECT activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
                stock_count, take_count, state, creator, create_time, update_time
         FROM activity
         WHERE activity_id = #{activityId}
     </select>
+
+    <update id="subtractionActivityStock" parameterType="java.lang.Long">
+        UPDATE activity SET stock_surplus_count = stock_surplus_count - 1
+        WHERE activity_id = #{activityId} AND stock_surplus_count > 0
+    </update>
 
 </mapper>

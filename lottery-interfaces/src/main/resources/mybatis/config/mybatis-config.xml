@@ -2,6 +2,9 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis全局配置文件 configuration 配置-->
+<!--批量设置别名这个包下的每一个类
+创建一个默认的别名，就是简单类名小写。这里不是包名？-->
 <configuration>
     <typeAliases>
         <package name="cn.itedus.lottery.infrastructure.po.Activity"/>

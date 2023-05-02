@@ -1,12 +1,30 @@
 server:
   port: 8080
 
-spring:
-  datasource:
-    username: root
-    password: zero
-    url: jdbc:mysql://127.0.0.1:3306/lottery_test?useUnicode=true
-    driver-class-name: com.mysql.jdbc.Driver
+# 多数据源路由配置
+mini-db-router:
+  jdbc:
+    datasource:
+      dbCount: 2
+      tbCount: 4
+      default: db00
+      routerKey: uId
+      list: db01,db02
+      db00:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true
+        username: root
+        password: zero
+      db01:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_01?useUnicode=true
+        username: root
+        password: zero
+      db02:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_02?useUnicode=true
+        username: root
+        password: zero
 
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
@@ -17,6 +35,8 @@ dubbo:
   application:
     name: Lottery
     version: 1.0.0
+    parameters:
+      unicast: false
   registry:
     address: multicast://224.5.6.7:1234
   protocol:
