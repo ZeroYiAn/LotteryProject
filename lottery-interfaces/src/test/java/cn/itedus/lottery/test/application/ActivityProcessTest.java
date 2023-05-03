@@ -32,7 +32,6 @@ public class ActivityProcessTest {
         req.setuId("胡仁杰");
         req.setActivityId(100001L);
         DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
-
         logger.info("请求入参：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
     }

@@ -11,6 +11,7 @@ import cn.itedus.lottery.infrastructure.po.UserStrategyExport;
 import cn.itedus.lottery.infrastructure.po.UserTakeActivity;
 import cn.itedus.lottery.infrastructure.po.UserTakeActivityCount;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -22,7 +23,7 @@ import java.util.Date;
  * @time: 2023/4/29 20:51
  */
 
-@Component
+@Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource
@@ -63,6 +64,7 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         if (null == userTakeLeftCount) {
             userTakeActivity.setTakeCount(1);
         } else {
+            //takeCount-(userTakeLeftCount -1) = takeCount - userTakeLeftCount + 1
             userTakeActivity.setTakeCount(takeCount - userTakeLeftCount + 1);
         }
         userTakeActivity.setStrategyId(strategyId);

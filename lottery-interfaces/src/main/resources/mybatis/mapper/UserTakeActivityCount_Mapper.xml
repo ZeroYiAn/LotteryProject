@@ -18,9 +18,9 @@
             u_id, activity_id, total_count, left_count, create_time, update_time
         )
         VALUES
-        (
-            #{uId}, #{activityId}, #{totalCount}, #{leftCount}, now(), now()
-        )
+            (
+                #{uId}, #{activityId}, #{totalCount}, #{leftCount}, now(), now()
+            )
     </insert>
 
     <select id="queryUserTakeActivityCount" parameterType="cn.itedus.lottery.infrastructure.po.UserTakeActivityCount" resultMap="userTakeActivityCountMap">

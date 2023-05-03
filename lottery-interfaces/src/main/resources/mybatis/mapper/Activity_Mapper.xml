@@ -3,17 +3,16 @@
 <mapper namespace="cn.itedus.lottery.infrastructure.dao.IActivityDao">
 
     <resultMap id="activityMap" type="cn.itedus.lottery.infrastructure.po.Activity">
-        <!--id标签设置主键的映射关系 -->
         <id column="id" property="id"/>
-        <!--result标签设置普通字段的映射关系-->
-        <!-- column：数据库中字段名 对应 property:PO类中属性名-->
         <result column="activity_id" property="activityId"/>
         <result column="activity_name" property="activityName"/>
         <result column="activity_desc" property="activityDesc"/>
         <result column="begin_date_time" property="beginDateTime"/>
         <result column="end_date_time" property="endDateTime"/>
         <result column="stock_count" property="stockCount"/>
+        <result column="stock_surplus_count" property="stockSurplusCount"/>
         <result column="take_count" property="takeCount"/>
+        <result column="strategy_id" property="strategyId"/>
         <result column="state" property="state"/>
         <result column="creator" property="creator"/>
         <result column="create_time" property="createTime"/>
@@ -23,10 +22,10 @@
     <insert id="insert" parameterType="cn.itedus.lottery.infrastructure.po.Activity">
         INSERT INTO activity
         (activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-         stock_count, take_count, state, creator, create_time, update_time)
+         stock_count, stock_surplus_count, take_count, strategy_id, state, creator, create_time, update_time)
         VALUES
-            (#{activityId}, #{activityName}, #{activityDesc},#{beginDateTime}, #{endDateTime},
-             #{stockCount}, #{takeCount}, #{state}, #{creator}, now(), now())
+            (#{activityId}, #{activityName}, #{activityDesc}, #{beginDateTime}, #{endDateTime},
+             #{stockCount}, #{stockSurplusCount}, #{takeCount}, #{strategyId}, #{state}, #{creator}, now(), now())
     </insert>
 
     <update id="alterState" parameterType="cn.itedus.lottery.domain.activity.model.vo.AlterStateVO">
@@ -37,7 +36,7 @@
 
     <select id="queryActivityById" parameterType="java.lang.Long" resultMap="activityMap">
         SELECT activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-               stock_count, take_count, state, creator, create_time, update_time
+               stock_count, stock_surplus_count, take_count, strategy_id, state, creator, create_time, update_time
         FROM activity
         WHERE activity_id = #{activityId}
     </select>
