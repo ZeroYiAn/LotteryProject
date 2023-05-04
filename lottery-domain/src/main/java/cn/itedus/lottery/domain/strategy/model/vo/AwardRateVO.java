@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * @time: 2023/4/26 19:58
  */
 
-public class AwardRateInfo {
+public class AwardRateVO {
 
     /**
      * 奖品ID
@@ -20,10 +20,10 @@ public class AwardRateInfo {
      */
     private BigDecimal awardRate;
 
-    public AwardRateInfo() {
+    public AwardRateVO() {
     }
 
-    public AwardRateInfo(String awardId, BigDecimal awardRate) {
+    public AwardRateVO(String awardId, BigDecimal awardRate) {
         this.awardId = awardId;
         this.awardRate = awardRate;
     }
@@ -43,4 +43,13 @@ public class AwardRateInfo {
     public void setAwardRate(BigDecimal awardRate) {
         this.awardRate = awardRate;
     }
+
+    @Override
+    public String toString() {
+        return "AwardRateVO{" +
+                "awardId='" + awardId + '\'' +
+                ", awardRate=" + awardRate +
+                '}';
+    }
 }
+

@@ -1,14 +1,30 @@
-package cn.itedus.lottery.domain.strategy.model.vo;
+package cn.itedus.lottery.rpc.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @description:中奖奖品信息
+ * @description: 奖品信息DTO(Data Transfer Object)
  * @author: ZeroYiAn
- * @time: 2023/4/26 19:59
+ * @time: 2023/5/4 15:11
  */
 
-public class DrawAwardInfo {
+/**
+ * 实现Serializable接口的作用：即实现可序列化
+ * 1、存储对象在存储介质中，以便在下次使用的时候，可以很快捷的重建一个副本；
+ * 2、便于数据传输，尤其是在远程调用的时候。
+ */
+public class AwardDTO implements Serializable {
+
+    /**
+     * 用户ID
+     */
+    private String userId;
+
+    /**
+     * 活动ID
+     */
+    private Long activityId;
 
     /**
      * 奖品ID
@@ -44,14 +60,16 @@ public class DrawAwardInfo {
      */
     private Date grantDate;
 
-    public DrawAwardInfo() {
+    public AwardDTO(String userId) {
+        this.userId = userId;
     }
 
-    public DrawAwardInfo(String awardId, Integer awardType, String awardName,String awardContent) {
-        this.awardId = awardId;
-        this.awardType = awardType;
-        this.awardName = awardName;
-        this.awardContent = awardContent;
+    public Long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getAwardId() {
@@ -109,6 +127,21 @@ public class DrawAwardInfo {
     public void setGrantDate(Date grantDate) {
         this.grantDate = grantDate;
     }
-}
 
+    @Override
+    public String toString() {
+        return "AwardDTO{" +
+                "userId='" + userId + '\'' +
+                ", activityId=" + activityId +
+                ", awardId='" + awardId + '\'' +
+                ", awardType=" + awardType +
+                ", awardName='" + awardName + '\'' +
+                ", awardContent='" + awardContent + '\'' +
+                ", strategyMode=" + strategyMode +
+                ", grantType=" + grantType +
+                ", grantDate=" + grantDate +
+                '}';
+    }
+
+}
 

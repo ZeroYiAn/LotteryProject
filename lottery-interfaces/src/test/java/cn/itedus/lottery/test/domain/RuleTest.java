@@ -24,7 +24,7 @@ import java.util.HashMap;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RuleTest {
-    private Logger logger = LoggerFactory.getLogger(ActivityTest.class);
+    private Logger logger = LoggerFactory.getLogger(RuleTest.class);
 
     @Resource
     private EngineFilter engineFilter;

@@ -1,22 +1,24 @@
-package cn.itedus.lottery.application.process.req;
+package cn.itedus.lottery.rpc.req;
+
+import java.io.Serializable;
 
 /**
- * @description: 发起抽奖的请求
+ * @description: 普通抽奖请求
  * @author: ZeroYiAn
- * @time: 2023/5/2 8:56
+ * @time: 2023/5/4 15:17
  */
 
-public class DrawProcessReq {
+public class DrawReq implements Serializable {
 
     /** 用户ID */
     private String uId;
     /** 活动ID */
     private Long activityId;
 
-    public DrawProcessReq() {
+    public DrawReq() {
     }
 
-    public DrawProcessReq(String uId, Long activityId) {
+    public DrawReq(String uId, Long activityId) {
         this.uId = uId;
         this.activityId = activityId;
     }
@@ -36,5 +38,4 @@ public class DrawProcessReq {
     public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
-
 }
