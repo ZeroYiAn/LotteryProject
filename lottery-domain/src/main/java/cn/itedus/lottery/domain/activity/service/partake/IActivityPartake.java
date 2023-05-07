@@ -6,7 +6,7 @@ import cn.itedus.lottery.domain.activity.model.res.PartakeResult;
 import cn.itedus.lottery.domain.activity.model.vo.DrawOrderVO;
 
 /**
- * @description:
+ * @description: 抽奖活动参与接口
  * @author: ZeroYiAn
  * @time: 2023/4/26 21:30
  */
@@ -24,5 +24,13 @@ public interface IActivityPartake {
      * @return          保存结果
      */
     Result recordDrawOrder(DrawOrderVO drawOrder);
+
+    /**
+     * 更新发货单MQ状态
+     *  @param uId      用户ID
+     * @param orderId   订单ID
+     * @param mqState   MQ 发送状态
+     */
+    void updateInvoiceMqState(String uId, Long orderId, Integer mqState);
 
 }

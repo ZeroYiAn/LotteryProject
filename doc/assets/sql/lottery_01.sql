@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 50639
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50639
  File Encoding         : 65001
 
- Date: 04/10/2021 08:43:02
+ Date: 30/10/2021 15:56:32
 */
 
 SET NAMES utf8mb4;
@@ -30,12 +30,13 @@ CREATE TABLE `user_strategy_export_000` (
   `strategy_mode` tinyint(2) DEFAULT NULL COMMENT '策略方式（1:单项概率、2:总体概率）',
   `grant_type` tinyint(2) DEFAULT NULL COMMENT '发放奖品方式（1:即时、2:定时[含活动结束]、3:人工）',
   `grant_date` datetime DEFAULT NULL COMMENT '发奖时间',
-  `grant_state` int(11) DEFAULT NULL COMMENT '发奖状态',
+  `grant_state` tinyint(4) DEFAULT NULL COMMENT '发奖状态',
   `award_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发奖ID',
   `award_type` tinyint(2) DEFAULT NULL COMMENT '奖品类型（1:文字描述、2:兑换码、3:优惠券、4:实物奖品）',
   `award_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品名称',
   `award_content` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品内容「文字描述、Key、码」',
   `uuid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '防重ID',
+  `mq_state` tinyint(4) DEFAULT NULL COMMENT '消息发送状态（0未发送、1发送成功、2发送失败）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -61,22 +62,26 @@ CREATE TABLE `user_strategy_export_001` (
   `strategy_mode` tinyint(2) DEFAULT NULL COMMENT '策略方式（1:单项概率、2:总体概率）',
   `grant_type` tinyint(2) DEFAULT NULL COMMENT '发放奖品方式（1:即时、2:定时[含活动结束]、3:人工）',
   `grant_date` datetime DEFAULT NULL COMMENT '发奖时间',
-  `grant_state` int(11) DEFAULT NULL COMMENT '发奖状态',
+  `grant_state` tinyint(4) DEFAULT NULL COMMENT '发奖状态',
   `award_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发奖ID',
   `award_type` tinyint(2) DEFAULT NULL COMMENT '奖品类型（1:文字描述、2:兑换码、3:优惠券、4:实物奖品）',
   `award_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品名称',
   `award_content` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品内容「文字描述、Key、码」',
   `uuid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '防重ID',
+  `mq_state` tinyint(4) DEFAULT NULL COMMENT '消息发送状态（0未发送、1发送成功、2发送失败）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uuid` (`uuid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户策略计算结果表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户策略计算结果表';
 
 -- ----------------------------
 -- Records of user_strategy_export_001
 -- ----------------------------
 BEGIN;
+INSERT INTO `user_strategy_export_001` VALUES (1, 'xiaofuge', 100001, 1454347265400504320, 10001, 2, 1, '2021-10-30 15:19:43', 1, '3', 1, 'ipad', 'Code', '1454347264666501120', 1, '2021-10-30 15:19:43', '2021-10-30 15:19:43');
+INSERT INTO `user_strategy_export_001` VALUES (2, 'xiaofuge', 100001, 1454351703703945216, 10001, 2, 1, '2021-10-30 15:37:21', 1, '3', 1, 'ipad', 'Code', '1454351703137714176', 1, '2021-10-30 15:37:21', '2021-10-30 15:37:21');
+INSERT INTO `user_strategy_export_001` VALUES (3, 'xiaofuge', 100001, 1454355276684722176, 10001, 2, 1, '2021-10-30 15:51:33', 1, '3', 1, 'ipad', 'Code', '1454355275833278464', 1, '2021-10-30 15:51:33', '2021-10-30 15:51:33');
 COMMIT;
 
 -- ----------------------------
@@ -92,12 +97,13 @@ CREATE TABLE `user_strategy_export_002` (
   `strategy_mode` tinyint(2) DEFAULT NULL COMMENT '策略方式（1:单项概率、2:总体概率）',
   `grant_type` tinyint(2) DEFAULT NULL COMMENT '发放奖品方式（1:即时、2:定时[含活动结束]、3:人工）',
   `grant_date` datetime DEFAULT NULL COMMENT '发奖时间',
-  `grant_state` int(11) DEFAULT NULL COMMENT '发奖状态',
+  `grant_state` tinyint(4) DEFAULT NULL COMMENT '发奖状态',
   `award_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发奖ID',
   `award_type` tinyint(2) DEFAULT NULL COMMENT '奖品类型（1:文字描述、2:兑换码、3:优惠券、4:实物奖品）',
   `award_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品名称',
   `award_content` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品内容「文字描述、Key、码」',
   `uuid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '防重ID',
+  `mq_state` tinyint(4) DEFAULT NULL COMMENT '消息发送状态（0未发送、1发送成功、2发送失败）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -123,12 +129,13 @@ CREATE TABLE `user_strategy_export_003` (
   `strategy_mode` tinyint(2) DEFAULT NULL COMMENT '策略方式（1:单项概率、2:总体概率）',
   `grant_type` tinyint(2) DEFAULT NULL COMMENT '发放奖品方式（1:即时、2:定时[含活动结束]、3:人工）',
   `grant_date` datetime DEFAULT NULL COMMENT '发奖时间',
-  `grant_state` int(11) DEFAULT NULL COMMENT '发奖状态',
+  `grant_state` tinyint(4) DEFAULT NULL COMMENT '发奖状态',
   `award_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '发奖ID',
   `award_type` tinyint(2) DEFAULT NULL COMMENT '奖品类型（1:文字描述、2:兑换码、3:优惠券、4:实物奖品）',
   `award_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品名称',
   `award_content` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '奖品内容「文字描述、Key、码」',
   `uuid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '防重ID',
+  `mq_state` tinyint(4) DEFAULT NULL COMMENT '消息发送状态（0未发送、1发送成功、2发送失败）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -139,7 +146,7 @@ CREATE TABLE `user_strategy_export_003` (
 -- Records of user_strategy_export_003
 -- ----------------------------
 BEGIN;
-INSERT INTO `user_strategy_export_003` VALUES (1, 'Uhdgkw766120d', 120405215, 1443558966104850432, 42480428672, 1, 1, '2021-09-30 20:50:52', 1, '1', 1, 'IMac', '????', '1443558966104850432', '2021-09-30 20:50:52', '2021-09-30 20:50:52');
+INSERT INTO `user_strategy_export_003` VALUES (1, 'Uhdgkw766120d', 120405215, 1443558966104850432, 42480428672, 1, 1, '2021-09-30 20:50:52', 1, '1', 1, 'IMac', '????', '1443558966104850432', NULL, '2021-09-30 20:50:52', '2021-09-30 20:50:52');
 COMMIT;
 
 -- ----------------------------
@@ -161,7 +168,7 @@ CREATE TABLE `user_take_activity` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uuid` (`uuid`) USING BTREE COMMENT '防重ID'
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户参与活动记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户参与活动记录表';
 
 -- ----------------------------
 -- Records of user_take_activity
@@ -169,6 +176,9 @@ CREATE TABLE `user_take_activity` (
 BEGIN;
 INSERT INTO `user_take_activity` VALUES (16, 'Uhdgkw766120d', 1443899607431151616, 100001, 'test', '2021-10-01 19:24:27', 2, NULL, NULL, 'Uhdgkw766120d_100001_2', '2021-10-01 19:24:27', '2021-10-01 19:24:27');
 INSERT INTO `user_take_activity` VALUES (17, 'Uhdgkw766120d', 1443900230654394368, 100001, 'test', '2021-10-01 19:26:56', 3, NULL, NULL, 'Uhdgkw766120d_100001_3', '2021-10-01 19:26:56', '2021-10-01 19:26:56');
+INSERT INTO `user_take_activity` VALUES (18, 'xiaofuge', 1454347264666501120, 100001, '活动名', '2021-10-30 15:19:43', 1, 10001, 1, 'xiaofuge_100001_1', '2021-10-30 15:19:43', '2021-10-30 15:19:43');
+INSERT INTO `user_take_activity` VALUES (19, 'xiaofuge', 1454351703137714176, 100001, '活动名', '2021-10-30 15:37:21', 2, 10001, 1, 'xiaofuge_100001_2', '2021-10-30 15:37:21', '2021-10-30 15:37:21');
+INSERT INTO `user_take_activity` VALUES (20, 'xiaofuge', 1454355275833278464, 100001, '活动名', '2021-10-30 15:51:32', 3, 10001, 1, 'xiaofuge_100001_3', '2021-10-30 15:51:33', '2021-10-30 15:51:33');
 COMMIT;
 
 -- ----------------------------
@@ -185,13 +195,14 @@ CREATE TABLE `user_take_activity_count` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uId_activityId` (`u_id`,`activity_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户活动参与次数表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户活动参与次数表';
 
 -- ----------------------------
 -- Records of user_take_activity_count
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_take_activity_count` VALUES (1, 'Uhdgkw766120d', 100001, 10, 6, '2021-10-01 15:29:27', '2021-10-01 15:29:27');
+INSERT INTO `user_take_activity_count` VALUES (2, 'xiaofuge', 100001, 10, 7, '2021-10-30 15:19:43', '2021-10-30 15:19:43');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -83,6 +83,17 @@
         </dependency>
         <!-- MapStruct end -->
 
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- xxl-job-core https://github.com/xuxueli/xxl-job/-->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+        </dependency>
+
         <!-- 业务包 -->
         <dependency>
             <groupId>cn.itedus.lottery</groupId>
