@@ -3,7 +3,10 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    #  2181是ZooKeeper的监听端口，9092是Kafka的监听端口。
+    # bootstrap-servers: localhost:9092
+    # 部署到虚拟机的docker中
+    bootstrap-servers: 192.168.200.150:9092
     producer:
       # 发生错误后，消息重发的次数。
       retries: 1
@@ -26,7 +29,7 @@ spring:
       # latest（默认值）在偏移量无效的情况下，消费者将从最新的记录开始读取数据（在消费者启动之后生成的记录）
       # earliest ：在偏移量无效的情况下，消费者将从起始位置读取分区的记录
       auto-offset-reset: earliest
-      # 是否自动提交偏移量，默认值是true,为了避免出现重复数据和数据丢失，可以把它设置为false,然后手动提交偏移量
+      # ！！！是否自动提交偏移量，默认值是true,为了避免出现重复数据和数据丢失，可以把它设置为false,然后手动提交偏移量
       enable-auto-commit: false
       # 键的反序列化方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -34,10 +37,25 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     listener:
       # 在侦听器容器中运行的线程数。
+      # concurrency是多少，每个使用@KafkaListener的消费者实例就会创建多少个线程。
+      # 例如此处有两个消费者，concurrency: 5，则会有2*5=10个线程进行监听，当然了，最后创建的线程的线程可能没有分配到分区，所以就会一直闲置到系统中。
       concurrency: 5
       #listner负责ack，每调用一次，就立即commit
       ack-mode: manual_immediate
       missing-topics-fatal: false
+
+  # Redis 云服务器搭建后配置并重启 【否则会 Unable to connect to 39.96.*.*:6379】
+  # 防火墙放行：firewall-cmd --zone=public --add-port=6379/tcp --permanent
+  # 防火墙重启：firewall-cmd --reload
+  # redis.conf 注释掉 bind 127.0.0.1
+  # redis.conf protected-mode yes 改为 protected-mode no
+  redis:
+    database: 0
+    host: 192.168.200.150      # Redis服务器地址，修改为你的地址
+    port: 6379              # Redis服务器连接端口
+    password: 780415          # Redis服务器连接密码（默认为空）
+    timeout: 3000           # Redis服务器链接超时配置
+
 
 # xxl-job
 # 官网：https://github.com/xuxueli/xxl-job/
@@ -69,16 +87,19 @@ mini-db-router:
       db00:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true
+        #url: jdbc:mysql://192.168.200.149:3306/lottery?useUnicode=true
         username: root
         password: zero
       db01:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/lottery_01?useUnicode=true
+        #url: jdbc:mysql://192.168.200.149:3306/lottery_01?useUnicode=true
         username: root
         password: zero
       db02:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/lottery_02?useUnicode=true
+        #url: jdbc:mysql://192.168.200.149:3306/lottery_02?useUnicode=true
         username: root
         password: zero
 

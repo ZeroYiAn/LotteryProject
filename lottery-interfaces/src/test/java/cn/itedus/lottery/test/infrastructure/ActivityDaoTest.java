@@ -1,4 +1,4 @@
-package cn.itedus.lottery.test.dao;
+package cn.itedus.lottery.test.infrastructure;
 
 import cn.itedus.lottery.infrastructure.dao.IActivityDao;
 import cn.itedus.lottery.infrastructure.po.Activity;
@@ -13,13 +13,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 /**
- * @description: 测试活动表 DAO
+ * @description:测试活动表 DAO
  * @author: ZeroYiAn
- * @time: 2023/4/28 18:34
+ * @time: 2023/5/8 22:03
  */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ActivityDaoTest {
+
     private Logger logger = LoggerFactory.getLogger(ActivityDaoTest.class);
 
     @Resource
@@ -30,4 +32,5 @@ public class ActivityDaoTest {
         Activity activity = activityDao.queryActivityById(100001L);
         logger.info("测试结果：{}", JSON.toJSONString(activity));
     }
+
 }

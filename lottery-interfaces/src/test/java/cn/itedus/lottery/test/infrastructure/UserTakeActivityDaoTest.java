@@ -1,4 +1,4 @@
-package cn.itedus.lottery.test.dao;
+package cn.itedus.lottery.test.infrastructure;
 
 import cn.itedus.lottery.infrastructure.dao.IUserTakeActivityDao;
 import cn.itedus.lottery.infrastructure.po.UserTakeActivity;
@@ -13,9 +13,9 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * @description: 测试用户参与活动表
+ * @description: 测试用户领取活动表
  * @author: ZeroYiAn
- * @time: 2023/4/28 18:47
+ * @time: 2023/5/9 21:29
  */
 
 @RunWith(SpringRunner.class)

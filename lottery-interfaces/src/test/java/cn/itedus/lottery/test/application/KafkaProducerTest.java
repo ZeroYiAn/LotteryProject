@@ -34,7 +34,7 @@ public class KafkaProducerTest {
     public void test_send() throws InterruptedException {
 
         InvoiceVO invoice = new InvoiceVO();
-        invoice.setuId("fustack");
+        invoice.setuId("胡仁杰");
         invoice.setOrderId(1444540456057864192L);
         invoice.setAwardId("3");
         invoice.setAwardType(Constants.AwardType.DESC.getCode());
@@ -45,6 +45,7 @@ public class KafkaProducerTest {
 
         kafkaProducer.sendLotteryInvoice(invoice);
 
+        //直接结束，可能太快看不到MQ消费消息
         while (true){
             Thread.sleep(10000);
         }

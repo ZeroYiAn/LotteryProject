@@ -27,12 +27,16 @@ public class ActivityProcessTest {
     private IActivityProcess activityProcess;
 
     @Test
-    public void test_doDrawProcess() {
+    public void test_doDrawProcess() throws InterruptedException {
         DrawProcessReq req = new DrawProcessReq();
-        req.setuId("胡仁杰");
+        req.setuId("黄乐妮");
         req.setActivityId(100001L);
         DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
         logger.info("请求入参：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
+
+        //由于消息发送到消息被监听消费之间需要时间，如果直接结束，可能太快看不到MQ消费消息
+        Thread.sleep(5000);
+
     }
 }

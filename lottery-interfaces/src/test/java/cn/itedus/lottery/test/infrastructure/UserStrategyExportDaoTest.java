@@ -1,4 +1,4 @@
-package cn.itedus.lottery.test.dao;
+package cn.itedus.lottery.test.infrastructure;
 
 import cn.itedus.lottery.common.Constants;
 import cn.itedus.lottery.domain.support.ids.IIdGenerator;
@@ -19,13 +19,13 @@ import java.util.Map;
 /**
  * @description: 用户策略计算结果表Dao测试
  * @author: ZeroYiAn
- * @time: 2023/4/28 18:37
+ * @time: 2023/5/9 20:58
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserStrategyExportDaoTest {
-    private Logger logger = LoggerFactory.getLogger(UserStrategyExportDaoTest.class);
+
+    private final static Logger logger = LoggerFactory.getLogger(UserStrategyExportDaoTest.class);
 
     @Resource
     private IUserStrategyExportDao userStrategyExportDao;
@@ -58,4 +58,5 @@ public class UserStrategyExportDaoTest {
         UserStrategyExport userStrategyExport = userStrategyExportDao.queryUserStrategyExportByUId("Uhdgkw766120d");
         logger.info("测试结果：{}", JSON.toJSONString(userStrategyExport));
     }
+
 }

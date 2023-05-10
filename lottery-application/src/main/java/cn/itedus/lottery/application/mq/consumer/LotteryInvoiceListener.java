@@ -28,7 +28,9 @@ import java.util.Optional;
  */
 @Component
 public class LotteryInvoiceListener {
+
     private static final Logger logger = LoggerFactory.getLogger(LotteryInvoiceListener.class);
+
     @Resource
     private DistributionGoodsFactory distributionGoodsFactory;
 
@@ -54,6 +56,9 @@ public class LotteryInvoiceListener {
 
             //3.通过断言，即发货成功，打印日志
             logger.info("消费MQ消息，完成 topic：{} bizId：{} 发奖结果：{}",topic,invoiceVO.getuId(),JSON.toJSONString(distributionRes));
+            //4.消息消费完成   在消费消息时，可以将自动提交偏移量关闭，改为手动提交偏移量。
+            // 当消费者成功处理完一个消息时，再手动提交该偏移量。当发生故障或者重启之后，消费者可以从上次提交的偏移量开始重新消费消息，避免重复消费。
+            ack.acknowledge();
 
         }catch (Exception e){
             //发奖环节失败，消息重试。所有的环节：发货、更新库 都要保证幂等性
