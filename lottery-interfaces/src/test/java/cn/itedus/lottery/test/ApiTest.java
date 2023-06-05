@@ -24,6 +24,11 @@ public class ApiTest {
      * 使用 SecureRandom 产生随机数采坑记录 https://blog.csdn.net/weixin_41385912/article/details/103267277
      */
     @Test
+    public void test(){
+        System.out.println("\uF000\uF001\uF002\uF003\uF004\uF005\uF006");
+        System.out.println("\uF064\uF065\uF066\uF067\uF068\uF069\uF070");
+    }
+    @Test
     public void test_strategy() {
         SecureRandom random = new SecureRandom();
         int rate = random.nextInt(100);

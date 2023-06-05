@@ -1,8 +1,8 @@
 package cn.itedus.lottery.test.application;
 
-import cn.itedus.lottery.application.process.IActivityProcess;
-import cn.itedus.lottery.application.process.req.DrawProcessReq;
-import cn.itedus.lottery.application.process.res.DrawProcessResult;
+import cn.itedus.lottery.application.process.draw.IActivityDrawProcess;
+import cn.itedus.lottery.application.process.draw.req.DrawProcessReq;
+import cn.itedus.lottery.application.process.draw.res.DrawProcessResult;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,22 +21,25 @@ import javax.annotation.Resource;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ActivityProcessTest {
+
     private Logger logger = LoggerFactory.getLogger(ActivityProcessTest.class);
 
     @Resource
-    private IActivityProcess activityProcess;
+    private IActivityDrawProcess activityProcess;
 
     @Test
     public void test_doDrawProcess() throws InterruptedException {
         DrawProcessReq req = new DrawProcessReq();
-        req.setuId("黄乐妮");
+        req.setuId("胡仁杰");
         req.setActivityId(100001L);
         DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
+
         logger.info("请求入参：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
 
-        //由于消息发送到消息被监听消费之间需要时间，如果直接结束，可能太快看不到MQ消费消息
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
     }
+
 }
+

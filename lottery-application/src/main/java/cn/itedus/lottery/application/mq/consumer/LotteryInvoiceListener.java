@@ -34,6 +34,19 @@ public class LotteryInvoiceListener {
     @Resource
     private DistributionGoodsFactory distributionGoodsFactory;
 
+    /**
+     * groupId = "lottery"  消费者组 "lottery" 内的一个消费者，负责消费某些分区（Partitions）,即监听的这个topic对应的分区 的数据
+     *
+     * 一个topic支持多个消费者(一个消费者可消费多个分区，一个分区可被多个消费组消费，但同一消费组内仅能有一个消费者同时消费1个分区)
+     *
+     * 一个消费者组里可以有多个消费者，每个消费者负责消费各自分区的数据，所有消费者共同合力消费分区内的数据
+     * 不同消费者组之间的消息消费是独立的
+     *
+     *
+     * @param record  消息记录
+     * @param ack    响应
+     * @param topic 主题
+     */
     @KafkaListener(topics = "lottery_invoice",groupId = "lottery")
     public void onMessage(ConsumerRecord<?,?>record, Acknowledgment ack, @Header(KafkaHeaders.RECEIVED_TOPIC)String topic){
         Optional<?> message = Optional.ofNullable(record.value());

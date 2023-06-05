@@ -1,6 +1,5 @@
 package cn.itedus.lottery.interfaces.assembler;
 
-
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.MapperConfig;
@@ -10,9 +9,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * @description: MapStruct 对象映射接口
+ * @description: 在assembler装配包下使用 MapStruct对象映射接口 做对象转换操作处理。
  * @author: ZeroYiAn
- * @time: 2023/5/4 15:26
+ * @time: 2023/6/4
  */
 @MapperConfig
 public interface IMapping<SOURCE, TARGET> {

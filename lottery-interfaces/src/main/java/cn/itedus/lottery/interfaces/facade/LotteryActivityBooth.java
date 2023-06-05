@@ -1,40 +1,40 @@
 package cn.itedus.lottery.interfaces.facade;
 
-import cn.itedus.lottery.application.process.IActivityProcess;
-import cn.itedus.lottery.application.process.req.DrawProcessReq;
-import cn.itedus.lottery.application.process.res.DrawProcessResult;
-import cn.itedus.lottery.application.process.res.RuleQuantificationCrowdResult;
+import cn.itedus.lottery.application.process.draw.IActivityDrawProcess;
+import cn.itedus.lottery.application.process.draw.req.DrawProcessReq;
+import cn.itedus.lottery.application.process.draw.res.DrawProcessResult;
+import cn.itedus.lottery.application.process.draw.res.RuleQuantificationCrowdResult;
 import cn.itedus.lottery.common.Constants;
 import cn.itedus.lottery.domain.rule.model.req.DecisionMatterReq;
 import cn.itedus.lottery.domain.strategy.model.vo.DrawAwardVO;
 import cn.itedus.lottery.interfaces.assembler.IMapping;
-import cn.itedus.lottery.rpc.ILotteryActivityBooth;
-import cn.itedus.lottery.rpc.dto.AwardDTO;
-import cn.itedus.lottery.rpc.req.DrawReq;
-import cn.itedus.lottery.rpc.req.QuantificationDrawReq;
-import cn.itedus.lottery.rpc.res.DrawRes;
+import cn.itedus.lottery.rpc.activity.booth.ILotteryActivityBooth;
+import cn.itedus.lottery.rpc.activity.booth.dto.AwardDTO;
+import cn.itedus.lottery.rpc.activity.booth.req.DrawReq;
+import cn.itedus.lottery.rpc.activity.booth.req.QuantificationDrawReq;
+import cn.itedus.lottery.rpc.activity.booth.res.DrawRes;
 import com.alibaba.fastjson.JSON;
+import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 
 /**
- * @description: 抽奖活动展台
- * 在 lottery-interfaces 接口层创建 facade 门面（或叫外观）模式 包装抽奖接口
- * facade模式可以为相互关联在一起的错综复杂的类整理出高层接口(API)，其中的Facade角色
- * 可以让系统对外只有一个简单的接口
+ * @description: 抽奖活动展台(booth)
+ * 实现并包装抽奖接口
+ * 在抽奖活动展台的类中主要实现了两个接口方法，指定活动抽奖(doDraw)、量化人群抽奖(doQuantificationDraw)
  * @author: ZeroYiAn
- * @time: 2023/5/4 15:27
+ * @time: 2023/6/4
  */
-@Controller
+
+@Service
 public class LotteryActivityBooth implements ILotteryActivityBooth {
 
     private Logger logger = LoggerFactory.getLogger(LotteryActivityBooth.class);
 
     @Resource
-    private IActivityProcess activityProcess;
+    private IActivityDrawProcess activityProcess;
 
     @Resource
     private IMapping<DrawAwardVO, AwardDTO> awardMapping;
@@ -108,3 +108,4 @@ public class LotteryActivityBooth implements ILotteryActivityBooth {
     }
 
 }
+

@@ -17,7 +17,7 @@
             VALUES
             <foreach collection="list" item="item" index="index" separator=",">
                 (
-                 #{item.awardId},
+                #{item.awardId},
                 #{item.awardType},
                 #{item.awardName},
                 #{item.awardContent},

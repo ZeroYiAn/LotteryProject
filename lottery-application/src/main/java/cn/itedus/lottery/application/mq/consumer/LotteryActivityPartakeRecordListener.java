@@ -20,6 +20,10 @@ import java.util.Optional;
  * @author: ZeroYiAn
  * @time: 2023/5/10 9:38
  */
+
+/**
+ * 别忘记注册成组件
+ */
 @Component
 public class LotteryActivityPartakeRecordListener {
     private  Logger LOGGER = LoggerFactory.getLogger(LotteryActivityPartakeRecordListener.class);

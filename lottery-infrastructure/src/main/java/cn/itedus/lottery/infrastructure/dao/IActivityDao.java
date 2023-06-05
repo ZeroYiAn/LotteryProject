@@ -1,5 +1,6 @@
 package cn.itedus.lottery.infrastructure.dao;
 
+import cn.itedus.lottery.domain.activity.model.req.ActivityInfoLimitPageReq;
 import cn.itedus.lottery.domain.activity.model.vo.AlterStateVO;
 import cn.itedus.lottery.infrastructure.po.Activity;
 import org.apache.ibatis.annotations.Mapper;
@@ -59,4 +60,21 @@ public interface IActivityDao {
      * @param activity  入参
      */
     void updateActivityStock(Activity activity);
+
+    /**
+     * 查询活动分页数据数量
+     *
+     * @param req 入参
+     * @return    结果
+     */
+    Long queryActivityInfoCount(ActivityInfoLimitPageReq req);
+
+    /**
+     * 查询活动分页数据列表
+     *
+     * @param req   入参
+     * @return      结果
+     */
+    List<Activity> queryActivityInfoList(ActivityInfoLimitPageReq req);
+
 }

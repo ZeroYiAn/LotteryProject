@@ -1,12 +1,14 @@
 server:
-  port: 8080
+  # 注意端口号，使用8080连接不上xxl-job,可能被其他服务（点评项目）占用
+  port: 8081
+
 
 spring:
   kafka:
     #  2181是ZooKeeper的监听端口，9092是Kafka的监听端口。
     # bootstrap-servers: localhost:9092
     # 部署到虚拟机的docker中
-    bootstrap-servers: 192.168.200.150:9092
+    bootstrap-servers: 192.168.200.154:9092
     producer:
       # 发生错误后，消息重发的次数。
       retries: 1
@@ -27,7 +29,7 @@ spring:
       auto-commit-interval: 1S
       # 该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下该作何处理：
       # latest（默认值）在偏移量无效的情况下，消费者将从最新的记录开始读取数据（在消费者启动之后生成的记录）
-      # earliest ：在偏移量无效的情况下，消费者将从起始位置读取分区的记录
+      # earliest ：如果此消费组从来没有提交过offset，那么就从头开始消费，如果提交过offset，那么就从最新的offset处消费，就和latest一样了
       auto-offset-reset: earliest
       # ！！！是否自动提交偏移量，默认值是true,为了避免出现重复数据和数据丢失，可以把它设置为false,然后手动提交偏移量
       enable-auto-commit: false
@@ -51,7 +53,7 @@ spring:
   # redis.conf protected-mode yes 改为 protected-mode no
   redis:
     database: 0
-    host: 192.168.200.150      # Redis服务器地址，修改为你的地址
+    host: 192.168.200.154      # Redis服务器地址，修改为你的地址
     port: 6379              # Redis服务器连接端口
     password: 780415          # Redis服务器连接密码（默认为空）
     timeout: 3000           # Redis服务器链接超时配置
@@ -65,15 +67,17 @@ spring:
 xxl:
   job:
     admin:
+      ### 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
       addresses: http://127.0.0.1:7397/xxl-job-admin
+    accessToken: default_token
     executor:
       address:
       appname: lottery-job
-      ip: localhost
-      port: 9998
+      ip:
+      port: 9999
       logpath: E:/JavaProjects/xxl-job-2.3.0/xxl-job-2.3.0/data/applogs/xxl-job/jobhandler
       logretentiondays: 30
-    accessToken: default_token
+
 
 # 多数据源路由配置
 mini-db-router:
@@ -103,22 +107,34 @@ mini-db-router:
         username: root
         password: zero
 
+# Mybatis
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
   config-location:  classpath:/mybatis/config/mybatis-config.xml
 
-# Dubbo 广播方式配置
+# nacos 配置中心
+nacos:
+  discovery:
+    server-addr: 192.168.200.154:8848
+
+
+# Dubbo 广播方式配置，如果调用不稳定可以修改为直连模式：https://codechina.csdn.net/KnowledgePlanet/Lottery/-/issues/1
 dubbo:
   application:
     name: Lottery
     version: 1.0.0
-    parameters:
-      unicast: false
+  #    parameters:
+  #      unicast: false
   registry:
-    address: multicast://224.5.6.7:1234
+    #    address: N/A  # 不需要注册到服务注册中心
+    #    address: #multicast://224.5.6.7:1234
+    #    address: zookeeper://127.0.0.1:2181
+    address: nacos://192.168.200.154:8848  # 服务器端地址
   protocol:
     name: dubbo
-    port: 20880
+    port: -1
   scan:
-    base-packages: cn.itedus.lottery.rpc
+    base-packages: cn.itedus.lottery.rpc.*
+
+
 

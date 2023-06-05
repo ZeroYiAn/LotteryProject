@@ -7,7 +7,11 @@ package cn.itedus.lottery.common;
  */
 public class Constants {
 
+
     public enum ResponseCode {
+        /**
+         * 枚举类
+         */
         SUCCESS("0000", "成功"),
         UN_ERROR("0001", "未知失败"),
         ILLEGAL_PARAMETER("0002", "非法参数"),

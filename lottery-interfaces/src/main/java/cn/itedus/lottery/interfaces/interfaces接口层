@@ -1,0 +1,18 @@
+lottery-interfaces 接口层实现RPC接口定义，引入application应用层服务，封装具体的接口
+
+lottery-interfaces 接口层是对 lottery-rpc 接口定义的具体实现，在 rpc 接口定义层还会定义出 DTO、REQ、RES 对象
+lottery-interfaces 包括 facade 门面接口、assembler 对象转换操作
+
+在 lottery-interfaces 接口层创建 facade 门面模式包装抽奖接口，并在 assembler(装配) 包 使用 MapStruct 做对象转换操作处理。
+
+1.对象转换：
+    以 DDD 设计的结构框架，在接口层和应用层需要做防污处理，也就是说不能直接把应用层、领域层的对象直接暴露处理，因为暴露出去可能会随着业务发展的过程中不断的添加各类字段，从而破坏领域结构。
+那么就需要增加一层对象转换，也就有了 vo2dto、dto2vo 的操作。
+    VO(Value Object / View Object):值对象/表现层对象，一般是抽象出来的业务对象，主要对应页面展示的数据对象，可以与数据库相对应(也可以不)，细分包括req,res
+    DTO(Data Transfer Object):数据传输对象，主要用于远程调用等需要大量传输数据的地方。
+
+    在 Java 系统工程开发过程中，都会有各个层之间的对象转换，比如 VO、DTO、PO、VO 等，而如果都是手动get、set又太浪费时间，还可能操作错误，选择一个自动化工具会更加方便。
+    MapStruct：在编译期生成get、set代码，和我们写get、set一样,性能很好。
+
+2.Facade 外观模式(门面模式)
+    Facade模式可以为相互关联在一起的错综复杂的类整理出高层接口(API)。其中Facade角色可以让系统对外只有一个简单的接口(API)

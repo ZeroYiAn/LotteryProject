@@ -1,9 +1,9 @@
 package cn.itedus.lottery.test.interfaces;
 
-import cn.itedus.lottery.rpc.ILotteryActivityBooth;
-import cn.itedus.lottery.rpc.req.DrawReq;
-import cn.itedus.lottery.rpc.req.QuantificationDrawReq;
-import cn.itedus.lottery.rpc.res.DrawRes;
+import cn.itedus.lottery.rpc.activity.booth.ILotteryActivityBooth;
+import cn.itedus.lottery.rpc.activity.booth.req.DrawReq;
+import cn.itedus.lottery.rpc.activity.booth.req.QuantificationDrawReq;
+import cn.itedus.lottery.rpc.activity.booth.res.DrawRes;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,18 +41,20 @@ public class LotteryActivityBoothTest {
     }
 
     @Test
-    public void test_doQuantificationDraw() {
+    public void test_doQuantificationDraw() throws InterruptedException {
         QuantificationDrawReq req = new QuantificationDrawReq();
-        req.setuId("胡仁杰");
+        req.setuId("黄乐妮");
         req.setTreeId(2110081902L);
         req.setValMap(new HashMap<String, Object>() {{
-            put("gender", "man");
+            put("gender", "woman");
             put("age", "18");
         }});
 
         DrawRes drawRes = lotteryActivityBooth.doQuantificationDraw(req);
         logger.info("请求参数：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(drawRes));
+
+        Thread.sleep(3000);
 
     }
 }

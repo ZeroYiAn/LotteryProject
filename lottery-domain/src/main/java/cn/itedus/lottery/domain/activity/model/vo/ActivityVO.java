@@ -46,6 +46,11 @@ public class ActivityVO {
     private Integer stockCount;
 
     /**
+     * 库存剩余
+     */
+    private Integer stockSurplusCount;
+
+    /**
      * 每人可参与次数
      */
     private Integer takeCount;
@@ -64,6 +69,16 @@ public class ActivityVO {
      * 创建人
      */
     private String creator;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -121,6 +136,14 @@ public class ActivityVO {
         this.stockCount = stockCount;
     }
 
+    public Integer getStockSurplusCount() {
+        return stockSurplusCount;
+    }
+
+    public void setStockSurplusCount(Integer stockSurplusCount) {
+        this.stockSurplusCount = stockSurplusCount;
+    }
+
     public Integer getTakeCount() {
         return takeCount;
     }
@@ -153,19 +176,39 @@ public class ActivityVO {
         this.creator = creator;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         return "ActivityVO{" +
-                "activityId=" + activityId +
+                "id=" + id +
+                ", activityId=" + activityId +
                 ", activityName='" + activityName + '\'' +
                 ", activityDesc='" + activityDesc + '\'' +
                 ", beginDateTime=" + beginDateTime +
                 ", endDateTime=" + endDateTime +
                 ", stockCount=" + stockCount +
+                ", stockSurplusCount=" + stockSurplusCount +
                 ", takeCount=" + takeCount +
                 ", strategyId=" + strategyId +
                 ", state=" + state +
                 ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
